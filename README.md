@@ -21,8 +21,31 @@ This repository contains the python code associated with the paper.
 ``` bash
 ├── token_decoration_custom.py    # this is the pm4py code for the token decoration of costs  
 ├── using_token_decoration.R      # this is R code that details how to use decoration function in R
-├── commented_token_custom.py     # this is a commented version of the token decoration function
+├── commented_token_custom.py     # this is a commented version of the token decoration code
 └── README.md
 ```
+------------------------------------------------------------------------
 
-Please get in touch with any questions or suggestions!
+#### 🔧 What is the required set-up?
+
+The custom code contains two primary functions, get_decorations() and apply(), which are extensions of the PM4Py library for process mining. These functions are used to calculate decorations and apply them to a Petri net for visualization, with a focus on the performance measure obtained by token replay.
+
+The functions are part of a custom algorithm which has been embedded in the PM4Py package due to the Object-Oriented Programming (OOP) nature of the codebase. The custom variant needs to be located at pm4py --> visualization --> petrinet --> variants --> token_decoration_custom in the package directory structure.
+
+The OOP style coding of PM4Py allows parameters to be provided at a higher level and then passed down to the individual level where these functions operate. Thus, parameters such as the measure, activity key, and timestamp key are initially specified at a more general level in the codebase and are then utilized within these functions.
+
+For executing this code, it's important to have the PM4Py package installed and understand the structure of the package. You should also have an appropriate process log and its corresponding Petri net, along with its initial and final markings. Finally, to correctly use these functions, understanding the role and effect of parameters, as well as the fundamentals of process mining and Petri nets, is required.
+The codebase with this custom variant has been made available in the specified repository, providing direct access to the modifications and additions made for this specific use case.
+
+------------------------------------------------------------------------
+
+#### 💪 What are the functions?
+
+The first function, get_decorations, is used to calculate metrics, referred to as decorations, for a given Petri net. These decorations, which include measures such as frequency and performance, serve to annotate the Petri net. The function takes as input the trace log of the process, the Petri net, initial and final markings, and other optional parameters. It then applies a sequence of operations: extracting variants from the log trace, applying token replay to align the log and model, computing single-element statistics, and finally aggregating these statistics.
+
+The second function, apply, leverages the computed decorations to visualize the Petri net. If no aggregated statistics are provided, it invokes the get_decorations function to compute them. It then passes the net, markings, and decorations to a function in PM4Py, visualize.apply, to generate and return the final visualization of the Petri net.
+
+Thus, the overall function of this script is to enrich and visualize Petri nets with performance information derived from process logs, facilitating better understanding and analysis of the process. We leverage this to provide costing decoration in process mining applies to the healthcare setting.
+
+
+*Please get in touch with any questions or suggestions!*
